@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\BahanBaku;
+use app\models\KompensasiDanBenefitBulanan;
 
 /**
- * BahanBakuSearch represents the model behind the search form about `app\models\BahanBaku`.
+ * KompensasiDanBenefitBulananSearch represents the model behind the search form about `app\models\KompensasiDanBenefitBulanan`.
  */
-class BahanBakuSearch extends BahanBaku
+class KompensasiDanBenefitBulananSearch extends KompensasiDanBenefitBulanan
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class BahanBakuSearch extends BahanBaku
     public function rules()
     {
         return [
-            [['Id_Bahan', 'Nama_Bahan', 'Satuan'], 'safe'],
+            [['Id_Komben', 'Bulan_Tahun', 'Timestamp_KomBen'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class BahanBakuSearch extends BahanBaku
      */
     public function search($params)
     {
-        $query = BahanBaku::find();
+        $query = KompensasiDanBenefitBulanan::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -50,9 +50,12 @@ class BahanBakuSearch extends BahanBaku
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'Id_Bahan', $this->Id_Bahan])
-            ->andFilterWhere(['like', 'Nama_Bahan', $this->Nama_Bahan])
-            ->andFilterWhere(['like', 'Satuan', $this->Satuan]);
+        $query->andFilterWhere([
+            'Timestamp_KomBen' => $this->Timestamp_KomBen,
+        ]);
+
+        $query->andFilterWhere(['like', 'Id_Komben', $this->Id_Komben])
+            ->andFilterWhere(['like', 'Bulan_Tahun', $this->Bulan_Tahun]);
 
         return $dataProvider;
     }
