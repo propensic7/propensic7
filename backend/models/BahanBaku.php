@@ -21,7 +21,10 @@ class BahanBaku extends \yii\db\ActiveRecord
     {
         return 'bahan_baku';
     }
-
+	public static function jancok()
+    {
+        return this;
+    }
     /**
      * @inheritdoc
      */
