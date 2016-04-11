@@ -3,8 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use app\models\Karyawan;
-use app\models\KaryawanSearch;
+use backend\models\Karyawan;
+use backend\models\KaryawanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

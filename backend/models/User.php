@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use Yii;
 
@@ -9,7 +9,6 @@ use Yii;
  *
  * @property string $username
  * @property string $password
- * @property string $last_login
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -28,7 +27,6 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'password'], 'required'],
-            [['last_login'], 'safe'],
             [['username'], 'string', 'max' => 15],
             [['password'], 'string', 'max' => 25]
         ];
@@ -42,7 +40,6 @@ class User extends \yii\db\ActiveRecord
         return [
             'username' => 'Username',
             'password' => 'Password',
-            'last_login' => 'Last Login',
         ];
     }
 }
