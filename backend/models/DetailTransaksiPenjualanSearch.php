@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\User;
+use backend\models\DetailTransaksiPenjualan;
 
 /**
- * UserSearch represents the model behind the search form about `backend\models\User`.
+ * DetailTransaksiPenjualanSearch represents the model behind the search form about `backend\models\DetailTransaksiPenjualan`.
  */
-class UserSearch extends User
+class DetailTransaksiPenjualanSearch extends DetailTransaksiPenjualan
 {
     /**
      * @inheritdoc
@@ -18,7 +18,8 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['username', 'password'], 'safe'],
+            [['Id_Trans', 'Jumlah_Barang'], 'integer'],
+            [['Id_Detail', 'Menu'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = DetailTransaksiPenjualan::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -50,8 +51,13 @@ class UserSearch extends User
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password]);
+        $query->andFilterWhere([
+            'Id_Trans' => $this->Id_Trans,
+            'Jumlah_Barang' => $this->Jumlah_Barang,
+        ]);
+
+        $query->andFilterWhere(['like', 'Id_Detail', $this->Id_Detail])
+            ->andFilterWhere(['like', 'Menu', $this->Menu]);
 
         return $dataProvider;
     }

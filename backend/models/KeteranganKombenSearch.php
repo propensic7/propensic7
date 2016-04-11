@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\User;
+use backend\models\KeteranganKomben;
 
 /**
- * UserSearch represents the model behind the search form about `backend\models\User`.
+ * KeteranganKombenSearch represents the model behind the search form about `backend\models\KeteranganKomben`.
  */
-class UserSearch extends User
+class KeteranganKombenSearch extends KeteranganKomben
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['username', 'password'], 'safe'],
+            [['Id_Keterangan', 'Nama_Keterangan'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = KeteranganKomben::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -50,8 +50,8 @@ class UserSearch extends User
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password]);
+        $query->andFilterWhere(['like', 'Id_Keterangan', $this->Id_Keterangan])
+            ->andFilterWhere(['like', 'Nama_Keterangan', $this->Nama_Keterangan]);
 
         return $dataProvider;
     }

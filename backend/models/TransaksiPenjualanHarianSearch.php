@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\User;
+use backend\models\TransaksiPenjualanHarian;
 
 /**
- * UserSearch represents the model behind the search form about `backend\models\User`.
+ * TransaksiPenjualanHarianSearch represents the model behind the search form about `backend\models\TransaksiPenjualanHarian`.
  */
-class UserSearch extends User
+class TransaksiPenjualanHarianSearch extends TransaksiPenjualanHarian
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['username', 'password'], 'safe'],
+            [['Id_Transaksi', 'Kasir', 'Timestamp_Penjualan'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = TransaksiPenjualanHarian::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -50,8 +50,12 @@ class UserSearch extends User
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password]);
+        $query->andFilterWhere([
+            'Timestamp_Penjualan' => $this->Timestamp_Penjualan,
+        ]);
+
+        $query->andFilterWhere(['like', 'Id_Transaksi', $this->Id_Transaksi])
+            ->andFilterWhere(['like', 'Kasir', $this->Kasir]);
 
         return $dataProvider;
     }

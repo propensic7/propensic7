@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\User;
-use backend\models\UserSearch;
+use backend\models\DetailTransaksiPenjualan;
+use backend\models\DetailTransaksiPenjualanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * DetailTransaksiPenjualanController implements the CRUD actions for DetailTransaksiPenjualan model.
  */
-class UserController extends Controller
+class DetailTransaksiPenjualanController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all DetailTransaksiPenjualan models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new DetailTransaksiPenjualanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,28 +42,29 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
-     * @param string $id
+     * Displays a single DetailTransaksiPenjualan model.
+     * @param integer $Id_Trans
+     * @param string $Id_Detail
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($Id_Trans, $Id_Detail)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($Id_Trans, $Id_Detail),
         ]);
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new DetailTransaksiPenjualan model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new DetailTransaksiPenjualan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->username]);
+            return $this->redirect(['view', 'Id_Trans' => $model->Id_Trans, 'Id_Detail' => $model->Id_Detail]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -72,17 +73,18 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing DetailTransaksiPenjualan model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param integer $Id_Trans
+     * @param string $Id_Detail
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($Id_Trans, $Id_Detail)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($Id_Trans, $Id_Detail);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->username]);
+            return $this->redirect(['view', 'Id_Trans' => $model->Id_Trans, 'Id_Detail' => $model->Id_Detail]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -91,28 +93,30 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing DetailTransaksiPenjualan model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param integer $Id_Trans
+     * @param string $Id_Detail
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($Id_Trans, $Id_Detail)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($Id_Trans, $Id_Detail)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the DetailTransaksiPenjualan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return User the loaded model
+     * @param integer $Id_Trans
+     * @param string $Id_Detail
+     * @return DetailTransaksiPenjualan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($Id_Trans, $Id_Detail)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = DetailTransaksiPenjualan::findOne(['Id_Trans' => $Id_Trans, 'Id_Detail' => $Id_Detail])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

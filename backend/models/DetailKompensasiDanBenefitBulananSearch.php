@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\User;
+use backend\models\DetailKompensasiDanBenefitBulanan;
 
 /**
- * UserSearch represents the model behind the search form about `backend\models\User`.
+ * DetailKompensasiDanBenefitBulananSearch represents the model behind the search form about `backend\models\DetailKompensasiDanBenefitBulanan`.
  */
-class UserSearch extends User
+class DetailKompensasiDanBenefitBulananSearch extends DetailKompensasiDanBenefitBulanan
 {
     /**
      * @inheritdoc
@@ -18,7 +18,8 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['username', 'password'], 'safe'],
+            [['Id_KomBen', 'Id_Karyawan', 'Keterangan'], 'safe'],
+            [['Jumlah'], 'integer'],
         ];
     }
 
@@ -40,7 +41,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = DetailKompensasiDanBenefitBulanan::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -50,8 +51,13 @@ class UserSearch extends User
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password]);
+        $query->andFilterWhere([
+            'Jumlah' => $this->Jumlah,
+        ]);
+
+        $query->andFilterWhere(['like', 'Id_KomBen', $this->Id_KomBen])
+            ->andFilterWhere(['like', 'Id_Karyawan', $this->Id_Karyawan])
+            ->andFilterWhere(['like', 'Keterangan', $this->Keterangan]);
 
         return $dataProvider;
     }
