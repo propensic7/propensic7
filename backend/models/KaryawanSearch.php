@@ -1,14 +1,14 @@
 <?php
 
-namespace backend\models;
+namespace app\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Karyawan;
+use app\models\Karyawan;
 
 /**
- * KaryawanSearch represents the model behind the search form about `backend\models\Karyawan`.
+ * KaryawanSearch represents the model behind the search form about `app\models\Karyawan`.
  */
 class KaryawanSearch extends Karyawan
 {

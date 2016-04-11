@@ -1,14 +1,14 @@
 <?php
 
-namespace backend\models;
+namespace app\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\User;
+use app\models\User;
 
 /**
- * UserSearch represents the model behind the search form about `backend\models\User`.
+ * UserSearch represents the model behind the search form about `app\models\User`.
  */
 class UserSearch extends User
 {
@@ -18,7 +18,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['username', 'password'], 'safe'],
+            [['username', 'password', 'last_login'], 'safe'],
         ];
     }
 
@@ -49,6 +49,10 @@ class UserSearch extends User
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+
+        $query->andFilterWhere([
+            'last_login' => $this->last_login,
+        ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'password', $this->password]);
